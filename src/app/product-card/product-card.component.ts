@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, EventEmitter, HostBinding, Input, Output, booleanAttribute, numberAttribute } from '@angular/core';
+import { Component, HostBinding, input, model, numberAttribute } from '@angular/core';
 
 @Component({
   selector: 'app-product-card',
@@ -8,34 +8,26 @@ import { Component, EventEmitter, HostBinding, Input, Output, booleanAttribute, 
   styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
-  @Input()
-  productName!: string;
+  readonly id = input.required<number, string | number>({ transform: numberAttribute });
 
-  @Input()
-  authors!: string[];
+  readonly productName = input<string>();
 
-  @Input()
-  company!: string;
+  readonly authors = input<string[]>();
 
-  @Input()
-  isShow!: boolean;
+  readonly company = input<string>();
 
-  @Output()
-  isShowChange = new EventEmitter<boolean>();
+  readonly isShow = model.required<boolean>();
 
-  @Input()
-  photoUrl!: string;
+  readonly photoUrl = input<string>();
 
-  @Input()
-  createDate!: Date;
+  readonly createDate = input<Date>();
 
-  @Input({ transform: numberAttribute })
-  price!: number;
+  readonly price = input<number, string | number>(0, { transform: numberAttribute });
 
   @HostBinding('class')
   class = 'app-product-card';
 
   onSetDisplay(isShow: boolean): void {
-    this.isShowChange.emit(isShow);
+    this.isShow.set(isShow);
   }
 }
