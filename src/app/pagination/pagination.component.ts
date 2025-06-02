@@ -1,5 +1,4 @@
-import { Component, Output, computed, input, model, numberAttribute, output, signal } from '@angular/core';
-
+import { Component, computed, input, model, numberAttribute } from '@angular/core';
 @Component({
   selector: 'app-pagination',
   imports: [],
@@ -11,7 +10,7 @@ export class PaginationComponent {
 
   readonly pageSize = input.required<number, string | number>({ transform: numberAttribute });
 
-  readonly pageIndex = model.required();
+  readonly pageIndex = model.required<number>();
 
   readonly range = computed(() => {
     const length = Math.ceil(this.totalCount() / this.pageSize());
